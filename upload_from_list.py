@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-databricks_folder = "/Shared/DataOps"
+databricks_folder = "/Shared/DataOps3"
 deploy_file = "deploy_list.txt"
 
 with open(deploy_file, "r") as f:
