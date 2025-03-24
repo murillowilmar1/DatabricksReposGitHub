@@ -33,5 +33,5 @@ jobs:
       - name: Create folder in Databricks workspace
         run: databricks workspace mkdirs /Shared/DataOps
 
-      - name: Import notebooks to Databricks
+      - name: Import Databricks to Databricks
         run: databricks workspace import_dir Databricks /Shared/DataOps -o
