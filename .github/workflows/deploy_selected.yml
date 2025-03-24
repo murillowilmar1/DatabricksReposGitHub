@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - notebooks/**
-      - upload_notebooks.py
+      - upload_from_list.py
 
 jobs:
   deploy:
