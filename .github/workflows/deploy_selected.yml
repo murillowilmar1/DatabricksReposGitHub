@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - notebooks/**
-      - upload_from_list.py
+      - deploy_list.txt
 
 jobs:
   deploy:
@@ -32,4 +32,4 @@ jobs:
           echo -e "[DEFAULT]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
 
       - name: Run upload script
-        run: python upload_from_list2.py
+        run: python upload_from_list.py
