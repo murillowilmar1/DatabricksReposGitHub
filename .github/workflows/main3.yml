@@ -1,10 +1,12 @@
-name: Upload Notebooks with list
+name: Upload Notebooks with List
 
 on:
   push:
+    branches: [main]
     paths:
       - notebooks/**
       - deploy_list.txt
+      - upload_from_list.py
 
 jobs:
   deploy:
@@ -31,5 +33,5 @@ jobs:
           mkdir -p ~/.databricks
           echo -e "[DEFAULT]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
 
-      - name: Run upload script
+      - name: Upload selected notebooks from deploy_list.txt
         run: python upload_from_list.py
