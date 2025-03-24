@@ -1,0 +1,36 @@
+name: Deploy from List on Push to Main
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - deploy_list.txt
+      - Databricks/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_HOST: https://adb-1119033843780050.10.azuredatabricks.net
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Install databricks-cli
+        run: pip install databricks-cli
+
+      - name: Configure Databricks CLI
+        run: |
+          mkdir -p ~/.databricks
+          echo -e "[DEFAULT]\nhost = $DATABRICKS_HOST\ntoken = $DATABRICKS_TOKEN" > ~/.databricks/config
+
+      - name: Run upload script
+        run: python upload_from_list2.py
