@@ -2,7 +2,7 @@ name: Upload Notebooks with List
 
 on:
   push:
-    branches: [main]
+    branches: master
     paths:
       - notebooks/**
       - deploy_list.txt
