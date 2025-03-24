@@ -2,9 +2,9 @@ name: Upload Notebooks with List
 
 on:
   push:
-    branches: master
+    branches: [master]
     paths:
-      - notebooks/**
+      - Databricks/**
       - deploy_list.txt
       - upload_from_list.py
 
