@@ -1,11 +1,10 @@
-name: Deploy from List on Push to Main
+name: Upload Notebooks with list
 
 on:
   push:
-    branches: [main]
     paths:
-      - deploy_list.txt
-      - Databricks/**
+      - notebooks/**
+      - upload_notebooks.py
 
 jobs:
   deploy:
