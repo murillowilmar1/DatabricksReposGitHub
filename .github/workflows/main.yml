@@ -3,7 +3,7 @@ name: Deploy Notebooks to Databricks
 on:
   push:
     paths:
-      - notebooks/**
+      - Databricks/**
 
 jobs:
   deploy:
