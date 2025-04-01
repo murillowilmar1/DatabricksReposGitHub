@@ -1,0 +1,9 @@
+{
+	"name": "adf-DatafactoryRepos",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "56350c22-04e4-4988-8ac3-759845ec245e",
+		"tenantId": "a21f4c27-33e5-4cad-a1ff-6167bd9f9a45"
+	}
+}
