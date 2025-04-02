@@ -27,6 +27,30 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "SalesLT.Customer",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "SalesLT"
+								},
+								{
+									"name": "tableName",
+									"value": "Customer"
+								},
+								{
+									"name": "enableCdc",
+									"value": true
+								},
+								{
+									"name": "waterMarkColumn",
+									"value": "ModifiedDate"
+								}
+							]
+						}
 					}
 				],
 				"Connection": {
@@ -74,7 +98,7 @@
 			{
 				"TargetEntities": [
 					{
-						"name": "bronze/SalesLT.Customer_New",
+						"name": "bronze/SalesLT.Customer",
 						"properties": {
 							"schema": [],
 							"dslConnectorProperties": [
@@ -88,7 +112,7 @@
 								},
 								{
 									"name": "folderPath",
-									"value": "SalesLT.Customer_New"
+									"value": "SalesLT.Customer"
 								}
 							]
 						}
@@ -119,8 +143,8 @@
 				},
 				"DataMapperMappings": [
 					{
-						"targetEntityName": "bronze/SalesLT.Customer_New",
-						"sourceEntityName": "SalesLT.Customer_New",
+						"targetEntityName": "bronze/SalesLT.Customer",
+						"sourceEntityName": "SalesLT.Customer",
 						"sourceConnectionReference": {
 							"connectionName": "AzureSqlDatabase1",
 							"type": "linkedservicetype"
