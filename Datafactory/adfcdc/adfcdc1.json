@@ -24,6 +24,14 @@
 								{
 									"name": "waterMarkColumn",
 									"value": "ModifiedDate"
+								},
+								{
+									"name": "allowSchemaDrift",
+									"value": false
+								},
+								{
+									"name": "inferDriftedColumnTypes",
+									"value": false
 								}
 							]
 						}
@@ -74,7 +82,7 @@
 			{
 				"TargetEntities": [
 					{
-						"name": "bronze/SalesLT.Customer_New",
+						"name": "bronze/",
 						"properties": {
 							"schema": [],
 							"dslConnectorProperties": [
@@ -85,10 +93,6 @@
 								{
 									"name": "fileSystem",
 									"value": "bronze"
-								},
-								{
-									"name": "folderPath",
-									"value": "SalesLT.Customer_New"
 								}
 							]
 						}
@@ -155,12 +159,7 @@
 				},
 				"DataMapperMappings": [
 					{
-						"targetEntityName": "bronze/SalesLT.Customer_New",
-						"sourceEntityName": "SalesLT.Customer_New",
-						"sourceConnectionReference": {
-							"connectionName": "AzureSqlDatabase1",
-							"type": "linkedservicetype"
-						},
+						"targetEntityName": "bronze/",
 						"attributeMappingInfo": {
 							"attributeMappings": []
 						}
@@ -176,7 +175,7 @@
 			},
 			"mode": "Microbatch"
 		},
-		"status": "Started",
+		"status": "Stopped",
 		"allowVNetOverride": false
 	}
 }
