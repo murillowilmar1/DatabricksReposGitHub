@@ -74,7 +74,7 @@
 			{
 				"TargetEntities": [
 					{
-						"name": "bronze/",
+						"name": "bronze/SalesLT.Customer_New",
 						"properties": {
 							"schema": [],
 							"dslConnectorProperties": [
@@ -85,6 +85,10 @@
 								{
 									"name": "fileSystem",
 									"value": "bronze"
+								},
+								{
+									"name": "folderPath",
+									"value": "SalesLT.Customer_New"
 								}
 							]
 						}
@@ -115,7 +119,7 @@
 				},
 				"DataMapperMappings": [
 					{
-						"targetEntityName": "bronze/",
+						"targetEntityName": "bronze/SalesLT.Customer_New",
 						"sourceEntityName": "SalesLT.Customer_New",
 						"sourceConnectionReference": {
 							"connectionName": "AzureSqlDatabase1",
@@ -136,7 +140,7 @@
 			},
 			"mode": "Microbatch"
 		},
-		"status": "Starting",
+		"status": "Started",
 		"allowVNetOverride": false
 	}
 }
