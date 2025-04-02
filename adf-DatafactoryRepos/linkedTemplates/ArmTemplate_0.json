@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
 		},
+		"linkedService2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService2'"
+		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "sqlserver120.database.windows.net"
@@ -63,6 +67,19 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('linkedService1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/linkedService2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('linkedService2_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -254,7 +271,7 @@
 					{
 						"TargetEntities": [
 							{
-								"name": "bronze/SalesLT.Customer_New",
+								"name": "bronze",
 								"properties": {
 									"schema": [],
 									"dslConnectorProperties": [
@@ -267,8 +284,8 @@
 											"value": "bronze"
 										},
 										{
-											"name": "folderPath",
-											"value": "SalesLT.Customer_New"
+											"name": "defaultToUpsert",
+											"value": false
 										}
 									]
 								}
@@ -276,7 +293,7 @@
 						],
 						"Connection": {
 							"linkedService": {
-								"referenceName": "linkedService1",
+								"referenceName": "linkedService2",
 								"type": "LinkedServiceReference"
 							},
 							"linkedServiceType": "AzureBlobStorage",
@@ -335,7 +352,7 @@
 						},
 						"DataMapperMappings": [
 							{
-								"targetEntityName": "bronze/SalesLT.Customer_New",
+								"targetEntityName": "bronze",
 								"sourceEntityName": "SalesLT.Customer_New",
 								"sourceConnectionReference": {
 									"connectionName": "AzureSqlDatabase1",
@@ -356,187 +373,12 @@
 					},
 					"mode": "Microbatch"
 				},
+				"status": "Stopped",
 				"allowVNetOverride": false
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]",
-				"[concat(variables('factoryId'), '/linkedServices/linkedService1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/cdcprueba')]",
-			"type": "Microsoft.DataFactory/factories/adfcdcs",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"SourceConnectionsInfo": [
-					{
-						"SourceEntities": [
-							{
-								"name": "SalesLT.Customer_New",
-								"properties": {
-									"schema": [],
-									"dslConnectorProperties": [
-										{
-											"name": "schemaName",
-											"value": "SalesLT"
-										},
-										{
-											"name": "tableName",
-											"value": "Customer_New"
-										},
-										{
-											"name": "enableCdc",
-											"value": true
-										},
-										{
-											"name": "waterMarkColumn",
-											"value": "ModifiedDate"
-										}
-									]
-								}
-							},
-							{
-								"name": "SalesLT.Customer",
-								"properties": {
-									"schema": [],
-									"dslConnectorProperties": [
-										{
-											"name": "schemaName",
-											"value": "SalesLT"
-										},
-										{
-											"name": "tableName",
-											"value": "Customer"
-										},
-										{
-											"name": "enableCdc",
-											"value": true
-										},
-										{
-											"name": "waterMarkColumn",
-											"value": "ModifiedDate"
-										}
-									]
-								}
-							}
-						],
-						"Connection": {
-							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
-								"type": "LinkedServiceReference"
-							},
-							"linkedServiceType": "AzureSqlDatabase",
-							"type": "linkedservicetype",
-							"isInlineDataset": true,
-							"commonDslConnectorProperties": [
-								{
-									"name": "allowSchemaDrift",
-									"value": true
-								},
-								{
-									"name": "inferDriftedColumnTypes",
-									"value": true
-								},
-								{
-									"name": "format",
-									"value": "table"
-								},
-								{
-									"name": "store",
-									"value": "sqlserver"
-								},
-								{
-									"name": "databaseType",
-									"value": "databaseType"
-								},
-								{
-									"name": "database",
-									"value": "database"
-								},
-								{
-									"name": "skipInitialLoad",
-									"value": true
-								}
-							]
-						}
-					}
-				],
-				"TargetConnectionsInfo": [
-					{
-						"TargetEntities": [
-							{
-								"name": "bronze/SalesLT.Customer",
-								"properties": {
-									"schema": [],
-									"dslConnectorProperties": [
-										{
-											"name": "container",
-											"value": "bronze"
-										},
-										{
-											"name": "fileSystem",
-											"value": "bronze"
-										},
-										{
-											"name": "folderPath",
-											"value": "SalesLT.Customer"
-										}
-									]
-								}
-							}
-						],
-						"Connection": {
-							"linkedService": {
-								"referenceName": "linkedService1",
-								"type": "LinkedServiceReference"
-							},
-							"linkedServiceType": "AzureBlobStorage",
-							"type": "linkedservicetype",
-							"isInlineDataset": true,
-							"commonDslConnectorProperties": [
-								{
-									"name": "allowSchemaDrift",
-									"value": true
-								},
-								{
-									"name": "inferDriftedColumnTypes",
-									"value": true
-								},
-								{
-									"name": "format",
-									"value": "parquet"
-								}
-							]
-						},
-						"DataMapperMappings": [
-							{
-								"targetEntityName": "bronze/SalesLT.Customer",
-								"sourceEntityName": "SalesLT.Customer",
-								"sourceConnectionReference": {
-									"connectionName": "AzureSqlDatabase1",
-									"type": "linkedservicetype"
-								},
-								"attributeMappingInfo": {
-									"attributeMappings": []
-								}
-							}
-						],
-						"Relationships": []
-					}
-				],
-				"Policy": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1
-					},
-					"mode": "Microbatch"
-				},
-				"status": "Started",
-				"allowVNetOverride": false
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]",
-				"[concat(variables('factoryId'), '/linkedServices/linkedService1')]"
+				"[concat(variables('factoryId'), '/linkedServices/linkedService2')]"
 			]
 		},
 		{

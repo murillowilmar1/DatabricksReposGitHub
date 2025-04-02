@@ -11,6 +11,9 @@
 		"linkedService1_connectionString": {
 			"value": ""
 		},
+		"linkedService2_connectionString": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"value": "sqlserver120.database.windows.net"
 		},
