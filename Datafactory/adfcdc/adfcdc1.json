@@ -1,5 +1,5 @@
 {
-	"name": "cdcprueba",
+	"name": "adfcdc1",
 	"properties": {
 		"SourceConnectionsInfo": [
 			{
@@ -16,30 +16,6 @@
 								{
 									"name": "tableName",
 									"value": "Customer_New"
-								},
-								{
-									"name": "enableCdc",
-									"value": true
-								},
-								{
-									"name": "waterMarkColumn",
-									"value": "ModifiedDate"
-								}
-							]
-						}
-					},
-					{
-						"name": "SalesLT.Customer",
-						"properties": {
-							"schema": [],
-							"dslConnectorProperties": [
-								{
-									"name": "schemaName",
-									"value": "SalesLT"
-								},
-								{
-									"name": "tableName",
-									"value": "Customer"
 								},
 								{
 									"name": "enableCdc",
@@ -98,7 +74,7 @@
 			{
 				"TargetEntities": [
 					{
-						"name": "bronze/SalesLT.Customer",
+						"name": "bronze",
 						"properties": {
 							"schema": [],
 							"dslConnectorProperties": [
@@ -111,8 +87,8 @@
 									"value": "bronze"
 								},
 								{
-									"name": "folderPath",
-									"value": "SalesLT.Customer"
+									"name": "defaultToUpsert",
+									"value": false
 								}
 							]
 						}
@@ -120,7 +96,7 @@
 				],
 				"Connection": {
 					"linkedService": {
-						"referenceName": "linkedService1",
+						"referenceName": "linkedService2",
 						"type": "LinkedServiceReference"
 					},
 					"linkedServiceType": "AzureBlobStorage",
@@ -137,14 +113,50 @@
 						},
 						{
 							"name": "format",
-							"value": "parquet"
+							"value": "delta"
+						},
+						{
+							"name": "mergeSchema",
+							"value": true
+						},
+						{
+							"name": "autoCompact",
+							"value": true
+						},
+						{
+							"name": "optimizedWrite",
+							"value": true
+						},
+						{
+							"name": "deletable",
+							"value": false
+						},
+						{
+							"name": "insertable",
+							"value": true
+						},
+						{
+							"name": "updateable",
+							"value": false
+						},
+						{
+							"name": "upsertable",
+							"value": false
+						},
+						{
+							"name": "skipDuplicateMapInputs",
+							"value": true
+						},
+						{
+							"name": "skipDuplicateMapOutputs",
+							"value": true
 						}
 					]
 				},
 				"DataMapperMappings": [
 					{
-						"targetEntityName": "bronze/SalesLT.Customer",
-						"sourceEntityName": "SalesLT.Customer",
+						"targetEntityName": "bronze",
+						"sourceEntityName": "SalesLT.Customer_New",
 						"sourceConnectionReference": {
 							"connectionName": "AzureSqlDatabase1",
 							"type": "linkedservicetype"
@@ -160,11 +172,10 @@
 		"Policy": {
 			"recurrence": {
 				"frequency": "Minute",
-				"interval": 1
+				"interval": 15
 			},
 			"mode": "Microbatch"
 		},
-		"status": "Started",
 		"allowVNetOverride": false
 	}
 }
